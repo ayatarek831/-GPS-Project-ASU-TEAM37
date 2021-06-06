@@ -3,6 +3,11 @@
 #include <stdlib.h>
 #include <math.h>
 #define PI 3.1415926535
+
+double degtorad(double deg);
+double radtodeg(double rad);
+double deg_DD(int degree,double min);
+
 // get 2 coordinates from GPS function in Degrees Decimal Minutes (DDM) and return the distance
 
 int distance(int degree_lat1, double min_lat1, int degree_lon1, double min_lon1, int degree_lat2, double min_lat2, int degree_lon2, double min_lon2) {
@@ -10,10 +15,10 @@ int distance(int degree_lat1, double min_lat1, int degree_lon1, double min_lon1,
     double dist;
     double Latitude1, long1 , Latitude2 , long2;
 
-    Latitude1 = deg(degree_lat1 , min_lat1);
-    long1 = deg(degree_lon1 , min_lon1);
-    Latitude2 = deg(degree_lat2 , min_lat2);
-    long2 = deg(degree_lon2 , min_lon2);
+    Latitude1 = deg_DD(degree_lat1 , min_lat1);
+    long1 = deg_DD(degree_lon1 , min_lon1);
+    Latitude2 = deg_DD(degree_lat2 , min_lat2);
+    long2 = deg_DD(degree_lon2 , min_lon2);
 
     if ((Latitude1 == Latitude2) && (long1 == long2)) {
         return 0;
@@ -70,7 +75,7 @@ double deg_DD(int degree,double min) {
     // test distance function
     int main() {
 
-      int z = distance( 31,  13.802,  30,  25.84 , 31,  13.6872,  30,  25.057 );
+      int z = distance( 31,  13.802,  30,  25.84 , 31,  13.6872,  30,  25.057 );  //dummy data
 
        printf("distance is %d meters\n" , z);
 
