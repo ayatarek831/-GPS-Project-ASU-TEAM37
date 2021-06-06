@@ -53,3 +53,31 @@ delayUs(0);
 GPIO_PORTA_DATA_R = 0;
 delayUs(40);
 }
+
+//============================== Display Array of Char ==============================
+void LCD_STRING(char* str)
+{
+uint32_t size;
+uint8_t up;
+uint32_t y;
+size = strlen(str);
+up = 1;
+for (y = 0; y < size; y++)
+{
+	delayMs(2);
+	LCD_data(str[y]);
+
+	if (((y + 1) % 16 == 0) && (up))
+	{
+		LCD_command(0xC0);
+		up = 0;
+	}
+	else if (((y + 1) % 16 == 0) && (!up))
+	{
+		LCD_command(0x80);
+		up = 1;
+	}
+}
+
+}
+
