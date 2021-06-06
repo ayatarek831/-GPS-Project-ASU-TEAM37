@@ -5,6 +5,25 @@
 #include "string.h"
 #define PI 3.14159265359
 
+//============================== Functions Prototypes ==============================
+void LCD_command(unsigned char command);
+void LCD_data(unsigned char data);
+void LCD_init(void);
+void LCD_STRING(char* str);
+void delayMs(int n);
+void delayUs(int n);
+//============================== Intialize PORTF ==============================
+void PORTF_init(void){                                                 
+SYSCTL_RCGCGPIO_R |= 0x20;			       //enable clock of Port F
+while((SYSCTL_PRGPIO_R & 0x20)==0); 	 //delay
+GPIO_PORTF_AMSEL_R &= 0x00;            //disable analog
+GPIO_PORTF_AFSEL_R &= 0x00;            //disable alternate function
+GPIO_PORTF_LOCK_R = 0x4C4F434B;				 //unlock GPIO Port F
+GPIO_PORTF_CR_R = 0x0E; 							 //enable changes to PF1-PF3 (0000 1110)
+GPIO_PORTF_DEN_R |= 0x0E;              //enable PF1,PF2,PF3 (0000 1110)
+GPIO_PORTF_DIR_R |= 0x0E;              //enable PF1-PF3 as output (0000 1110)
+GPIO_PORTF_PCTL_R &= 0x00000000;       //PCTL GPIO
+}
 void LED_ON(uint32_t distance){
 char distance_str[32];
 if (distance >= 100)
