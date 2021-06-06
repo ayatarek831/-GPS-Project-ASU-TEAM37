@@ -29,3 +29,22 @@ int distance(int degree_lat1, double min_lat1, int degree_lon1, double min_lon1,
         return (dist);
         }
     }
+
+//this function take the coordinates from gps and return its degree
+
+int Deg(double x) {
+int Deg_lat;
+x = x /100;
+Deg_lat = (int)x;
+return Deg_lat;
+}
+
+//this function take the coordinates from gps and return its minutes
+
+double Min(double x) {
+double Min_lat;
+int Deg_lat = Deg(x);
+Min_lat = x - (Deg_lat*100);
+return Min_lat;
+
+}
