@@ -41,8 +41,7 @@ else
 	GPIO_PORTF_DATA_R |= 0x00 ;                        //turn OFF LED
 	LCD_command(1);                                    //clear display 
 	LCD_command(0x80);                                 //lcd cursor location 
-	LCD_STRING("The Distance < 100 meter");
-	sprintf(distance_str, "The Distance is %d meter", distance);
+	sprintf(distance_str, "The Distance < 100 meter = %d meter", distance);
 	LCD_STRING(distance_str);
 }
 }
