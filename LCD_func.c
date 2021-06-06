@@ -30,3 +30,26 @@ LCD_command(0x06); 											                                          //move c
 LCD_command(0x01); 											                                          //clear screen, move cursor to home
 LCD_command(0x0F);                                                                //turn on display, cursor blinking
 } 
+
+void LCD_command(unsigned char command)
+{
+GPIO_PORTA_DATA_R = 0; 																								 						//RS =0, E=0, RW=0
+GPIO_PORTB_DATA_R = command;
+GPIO_PORTA_DATA_R = EN; 																													//pulse E
+delayUs(0);
+GPIO_PORTA_DATA_R = 0;
+if (command < 4) 																																	//command 1 and 2 needs up to 1.64ms
+	delayMs(2);
+else
+	delayUs(40); 																																		//all others 40 us
+} 
+
+void LCD_data(unsigned char data)
+{
+GPIO_PORTA_DATA_R = RS;                                                          //RS=1, E=0,RW=0 (A5 = 1)  NOTE:[RS =1 for data & Rs = 0 for Command]
+GPIO_PORTB_DATA_R = data;
+GPIO_PORTA_DATA_R = EN | RS; 																										 //pulse E
+delayUs(0);
+GPIO_PORTA_DATA_R = 0;
+delayUs(40);
+}
