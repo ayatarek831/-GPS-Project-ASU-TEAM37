@@ -2,7 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <math.h>
-
+#define PI 3.1415926535
 // get 2 coordinates from GPS function in Degrees Decimal Minutes (DDM) and return the distance
 
 int distance(int degree_lat1, double min_lat1, int degree_lon1, double min_lon1, int degree_lat2, double min_lat2, int degree_lon2, double min_lon2) {
@@ -48,3 +48,31 @@ Min_lat = x - (Deg_lat*100);
 return Min_lat;
 
 }
+
+
+
+// this function convert from degree to radian
+double degtorad(double deg) {
+    return (deg * PI / 180);
+}
+// this function convert from radian to degree
+double radtodeg(double rad) {
+    return (rad * 180 / PI);
+}
+    // this function convert from Degrees Decimal Minutes (DDM) to Degrees Decimal (DD)
+double deg_DD(int degree,double min) {
+    double deg;
+    deg = degree +(min/60);
+    return deg;
+}
+
+
+    // test distance function
+    int main() {
+
+      int z = distance( 31,  13.802,  30,  25.84 , 31,  13.6872,  30,  25.057 );
+
+       printf("distance is %d meters\n" , z);
+
+        return 0;
+    }
