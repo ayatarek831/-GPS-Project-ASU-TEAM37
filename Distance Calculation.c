@@ -86,11 +86,29 @@ double deg_DD(int degree,double min) {
 
 
     // test distance function
+       // test distance function
     int main() {
+        int sum = 0;
+        double lat1 = 3013.3309;
+        double lon1 = 3128.2457;
 
-      int z = distance( 31,  13.802,  30,  25.84 , 31,  13.6872,  30,  25.057 );  //dummy data
 
-       printf("distance is %d meters\n" , z);
 
-        return 0;
+            while ( sum <= 100) {
+                delay();
+
+        double lat2 = 3013.4052;
+        double lon2 = 3127.7824;
+
+
+
+        int d = distance(lat1 , lon1 , lat2 , lon2);  //dummy data
+      //  sum += d;
+
+       lat1 = lat2;
+       lon1 = lon2;
+
+       printf("distance is %d meters\n" , d);
+            }
+
     }
