@@ -97,3 +97,15 @@ for(i = 0 ;i < n; i++)
 for(j = 0; j < 3; j++)
 {} //do nothing for 1 us
 }
+
+
+void LCD_message(char *data){
+LCD_command(clear_display);
+delayMs(100);
+LCD_command(cursorOn);
+delayMs(100);
+LCD_command(FirstRow);
+delayMs(100);
+LCD_STRING(data);
+delayMs(100);
+}
