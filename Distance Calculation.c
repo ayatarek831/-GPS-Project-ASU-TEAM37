@@ -66,7 +66,13 @@ minute = x - (Degree*100);
 return minute;
 
 }
+void delay(){
+   for (int c = 1; c <= 32767; c++)
+       for (int d = 1; d <= 32767; d++)
+       {}
 
+   return 0;
+}
 
 
 // this function convert from degree to radian
