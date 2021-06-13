@@ -64,3 +64,9 @@ char* UART2_ReadStr(void){
 	}
 	return str;
 }
+void UART1_WriteString(char *str){								//Write String
+  while(*str){
+    UART1_Write(*str);
+    str++;
+  }
+}
