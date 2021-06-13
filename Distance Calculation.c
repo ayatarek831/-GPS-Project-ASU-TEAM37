@@ -7,18 +7,31 @@
 double degtorad(double deg);
 double radtodeg(double rad);
 double deg_DD(int degree,double min);
+double Min(double x);
+
 
 // get 2 coordinates from GPS function in Degrees Decimal Minutes (DDM) and return the distance
 
-int distance(int degree_lat1, double min_lat1, int degree_lon1, double min_lon1, int degree_lat2, double min_lat2, int degree_lon2, double min_lon2) {
+int distance(double lat1 , double lon1 , double lat2 , double lon2) {
     double lon;
     double dist;
+
     double Latitude1, long1 , Latitude2 , long2;
 
-    Latitude1 = deg_DD(degree_lat1 , min_lat1);
-    long1 = deg_DD(degree_lon1 , min_lon1);
-    Latitude2 = deg_DD(degree_lat2 , min_lat2);
-    long2 = deg_DD(degree_lon2 , min_lon2);
+       int deg_lat1 = Deg(lat1);
+       double min_lat1 = Min(lat1);
+       int deg_lon1 = Deg(lon1);
+       double min_lon1 = Min(lon1);
+
+        int deg_lat2 = Deg(lat2);
+        double min_lat2 = Min(lat2);
+        int deg_lon2 = Deg(lon2);
+        double min_lon2 = Min(lon2);
+
+    Latitude1 = deg_DD(deg_lat1 , min_lat1);
+    long1 = deg_DD(deg_lon1 , min_lon1);
+    Latitude2 = deg_DD(deg_lat2 , min_lat2);
+    long2 = deg_DD(deg_lon2 , min_lon2);
 
     if ((Latitude1 == Latitude2) && (long1 == long2)) {
         return 0;
