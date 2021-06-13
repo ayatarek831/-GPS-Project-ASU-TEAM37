@@ -47,3 +47,20 @@ GPIO_PORTD_PCTL_R |= 0x11000000 ;			               // configure PD6-PD7 as UART
 GPIO_PORTD_AMSEL_R =0x00;                            // disable analog functionality on PA
 	
 }*/
+char UART2_read(void){
+    while((UART2_FR_R&0x10) == 0x10);
+    return UART2_DR_R & 0xFF;
+}
+void UART2_write(char c){
+    while((UART2_FR_R & UART_FR_TXFF) != 0);
+    UART0_DR_R = c;
+}
+
+char* UART2_ReadStr(void){
+	char* str;
+	int i;
+	for (i=0; i<1810; i++){
+		str[i] =  UART2_read();
+	}
+	return str;
+}
