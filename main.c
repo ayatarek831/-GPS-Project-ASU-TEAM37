@@ -35,8 +35,9 @@ void delayUs(int n);
 void PORTF_init(void);
 void LED_ON(uint32_t distance);
 //============================== MAIN FUNCTION ==============================
-	int main(void)
-	{
+int main(void)
+{
+SCB->CPACR |= ((3UL << 10*2) | (3UL << 11*2) );
 PORTF_init();
 LCD_init();
 LED_ON(10); 
