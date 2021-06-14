@@ -34,15 +34,84 @@ void delayUs(int n);
 
 void PORTF_init(void);
 void LED_ON(uint32_t distance);
+//====================pasrsin initialization=================
+char data[26][12];
+char* temp;
+char Buffer[500];
+double Latitude[50],Longitude[50];
+double lat,lon;
+double lat2,lon2;
+int deg_lat;
+double min_lat;
+int deg_lon;
+double min_lon;
+int deg_lat2;
+double min_lat2;
+int deg_lon2;
+double min_lon2;
+//============================== VARIABLES ==============================
+int i;
+double totaldistance = 0.0;
+double distance =0.0;
+int i=0,j=0,k=0;
+
+
+
 //============================== MAIN FUNCTION ==============================
 	int main(void)
 	{
+		SCB->CPACR |= ((3UL << 10*2) | (3UL << 11*2) );
 PORTF_init();
 LCD_init();
+UART1_Init();		
 LED_ON(10); 
-		
+Latitude[0] =0.0;
+Longitude[0]=0.0;		
 //============================== Parsing ==============================
-while(1){
+delayMs(600000);
+
+	for(i=0;i<150;i++)
+{
+	Buffer[i] = UART1_Read();
+}
+temp = strstr(Buffer,"$GPGGA");         // find GGA data inside GPS data block
+if(*temp=='$')                         // start of a line
+{
+	i=0;
+	k=0;
+	while(temp[j]!='\x0a')       // end of a line
+	{
+		if(temp[j]!=',')
+		{
+			data[i][k] = temp[j];
+			k++;
+		}
+		else
+		{
+			data[i][k] = '\0';
+			i++;
+			k=0;
+		}
+		j++;
+	}
+	j=0;
+}
+
+lat=atof(data[2]);
+lon=atof(data[4]);
+
+deg_lat = Deg(lat);
+min_lat = Min(lat);
+deg_lon = Deg(lon);
+min_lon = Min(lon);
+	
+Latitude[0] = deg_DD(deg_lat , min_lat);
+Longitude[0] = deg_DD(deg_lon , min_lon);		
+//======================================//		
+while(totaldistance <= 100){
+
+delayMs(1000);	
+	
 for(i=0;i<150;i++)
 {
 	Buffer[i] = UART1_Read();
@@ -70,15 +139,29 @@ if(*temp=='$')                         // start of a line
 	j=0;
 }
 
-Latitude[0]=atof(data[2]);
-Longitude[0]=atof(data[4]);
+lat2=atof(data[2]);
+lon2=atof(data[4]);
 
-distance = distance_calc(30.244776028800565, 31.461346753073578,30.244975300103558, 31.463567622130945);
-LED_ON(distance);
-}		
-		
+deg_lat2 = Deg(lat);
+min_lat2 = Min(lat);
+deg_lon2 = Deg(lon);
+min_lon2 = Min(lon);
 
-    }  
+
+Latitude[1] = deg_DD(deg_lat2 , min_lat2);
+Longitude[1] = deg_DD(deg_lon2 , min_lon2);
+
+distance = distance_calc(Latitude[0], Longitude[0],Latitude[1],Longitude[1]);
+	totaldistance+=distance;
+
+Latitude[0] = Latitude[1];
+Longitude[0] = Longitude[1];
+
+}
+
+LED_ON(totaldistance);
+}
+ 
 
 
 
