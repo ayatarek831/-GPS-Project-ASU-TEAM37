@@ -55,7 +55,19 @@ double totaldistance = 0.0;
 double distance =0.0;
 int i=0,j=0,k=0;
 
-
+//============================== Distance calc ==============================
+double distance_calc(double previousLat,double previousLong,double latitude,double longitude)
+{
+	
+// to calculate the distance between 2 logitudes , 2 latitudes 
+		double pi = 3.141592653589793;
+    double fLong = (longitude - previousLong) * (pi/180);// d2r is a constant to convert to radian defined in the header
+    double fLat = (latitude - previousLat) * (pi/180);
+    double a = pow(sin(fLat/2.0), 2) + cos(previousLat*(pi/180)) * cos(latitude*(pi/180)) * pow(sin(fLong/2.0), 2);
+    double c = 2 * atan2(sqrt(a), sqrt(1-a));
+    double d = 6371 * c;		// R is the radius of the Earth Defined in the header file  
+    return d * 1000;
+}
 
 //============================== MAIN FUNCTION ==============================
 	int main(void)
