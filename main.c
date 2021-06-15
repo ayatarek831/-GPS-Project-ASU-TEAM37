@@ -6,9 +6,9 @@
 Mahmoud Sayed Mahmoud Helmy         | 1804992
 Mahmoud Mohamed Mohsen Abdelaziz    | 1807302
 Mahmoud Yasser Mohamed Sayed        | 1802179
-Aya Mohamed Abdelhalem              | 1804570
-Aya allah Tarek                     | 1809845
-Aya Mohamed Elhussieny              | 1804970
+Aya Mohamed Abdelhalim              | 1804570
+Aya tallah Tarek                     | 1809845
+Aya Mohamed Elhusseny              | 1804970
 
 */
 //============================== VARIABLES ==============================
@@ -70,3 +70,16 @@ if(*temp=='$')                         // start of a line
 lat=atof(data[2]);
 lon=atof(data[4]);
 
+//===================== Conversions ================ 
+Latitude = convert_Lat(lat); 												//Convert it to Degree Decimal
+Longitude = convert_Lon(lon);
+//=================================================
+
+if (pLat == 0 && pLon == 0) 
+{
+pLat = Latitude;
+pLon = Longitude;
+}
+cLat = Latitude;
+cLon = Longitude;
+distance =  distance_calc(cLat,cLon,pLat,pLon);
