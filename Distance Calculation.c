@@ -23,5 +23,21 @@ double radius = 6371;      // radius of the earth in km
 double distance = 2 * radius * asin(sqrt(dis_part1)) * 1000;  // distance in m
 return distance;
 }
+double convert_Lat(double lati){
+double mm_lat;
+int dd_lat;
+dd_lat = (lati / 100);
+mm_lat = lati - (dd_lat* 100);
+mm_lat = mm_lat / 60;
+return dd_lat + mm_lat;
+}
+double convert_Lon(double loni){
+double mm_longi;
+int dd_longi;
+dd_longi = (loni / 100);
+mm_longi = loni - (dd_longi * 100);
+mm_longi = mm_longi / 60;
+return dd_longi + mm_longi;
+}
 
 
