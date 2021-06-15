@@ -1,42 +1,72 @@
-//******************************************************* **********************
-//
-// tm4c123gh6pm.h - TM4C123GH6PM Register Definitions
-//
-// Copyright (c) 2013 Texas Instruments Incorporated.  All rights reserved.
-// Software License Agreement
-// 
-//   Redistribution and use in source and binary forms, with or without
-//   modification, are permitted provided that the following conditions
-//   are met:
-// 
-//   Redistributions of source code must retain the above copyright
-//   notice, this list of conditions and the following disclaimer.
-// 
-//   Redistributions in binary form must reproduce the above copyright
-//   notice, this list of conditions and the following disclaimer in the
-//   documentation and/or other materials provided with the  
-//   distribution.
-// 
-//   Neither the name of Texas Instruments Incorporated nor the names of
-//   its contributors may be used to endorse or promote products derived
-//   from this software without specific prior written permission.
-// 
-// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-// "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-// LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-// A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
-// OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-// SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-// LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-// DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-// THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-// (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-// OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-// 
-// This is part of revision 1.0 of the Tiva Firmware Development Package.
-//
-//*****************************************************************************
+//============================== Includes  ==============================
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <math.h>
+#include <stdint.h>
+#include <stdbool.h>
+#include "C:/Keil/Headers/driverlib/uart.h"
+#include <stdint.h>
+#include <stdbool.h>
 
+
+
+//*****************************************************************************
+//============================== Function Prototypes  ==============================
+//============================== UART ==============================
+char UART1_Read(void);
+void UART1_Init(void);
+void UART1_WriteString(char *str);
+void UART1_ReadString(char *str, char stopChar);
+void UART1_Write(char data);
+void UART0_write(char c);
+void UART0_Init(void);
+//============================== LCD ==============================
+void LCD_init(void);
+void LCD_command(unsigned char command);
+void LCD_data(unsigned char data);
+void LCD_STRING(char* str);
+void LCD_message(char *data);
+void delayMs(int n);
+void delayUs(int n);
+//============================== TEST ==============================
+void PORTF_init(void);
+void LED_ON(double distance);
+void LED(int color);
+//============================== Distance ==============================
+double distance_calc(double previousLat,double previousLong,double latitude,double longitude);
+double convert_Lat(double lati);
+double convert_Lon(double loni);
+//============================== SysTick ==============================
+void SysTick_init(void);
+void l0_ms(void);
+void fractions_delay(int frac);
+void delay(int s, int d);
+//============================== Constants ==============================
+#define RS 0x20 											     //PORTA BIT5 mask
+#define RW 0x40 									         //PORTA BIT6 mask 
+#define EN 0x80 									         //PORTA BIT7 mask
+#define PI 3.14159265359
+#define R 6371
+#define TO_RAD (3.1415926536 / 180)
+#define clear_display     0x01
+#define returnHome        0x02
+#define moveCursorRight   0x06
+#define moveCursorLeft    0x08
+#define Shift_Cursor_Left 0x10
+#define shiftDisplayRight 0x1C
+#define shiftDisplayLeft  0x18
+#define cursorBlink       0x0F
+#define cursorOff         0x0C
+#define cursorOn          0x0E
+#define Function_set_4bit 0x28
+#define Function_set_8bit 0x38
+#define Entry_mode        0x06
+#define Function_8_bit    0x32
+#define Set5x7FontSize    0x20
+#define FirstRow          0x80
+#define SecondRow         0xC0 
+//========================================================================================================
 #ifndef __TM4C123GH6PM_H__
 #define __TM4C123GH6PM_H__
 
