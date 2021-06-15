@@ -83,3 +83,13 @@ pLon = Longitude;
 cLat = Latitude;
 cLon = Longitude;
 distance =  distance_calc(cLat,cLon,pLat,pLon);
+// Error Handling - 
+if (distance <= 15) 
+{            
+totaldistance += distance;
+}
+pLat = cLat;
+pLon = cLon;
+LED_ON(totaldistance);
+}
+}
