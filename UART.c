@@ -1,6 +1,6 @@
 #include "tm4c123gh6pm.h"
-//============================== PORTD Intialization ==============================
-void PORTD_init(void){ 
+//============================== PORTD Intialization (if needed)==============================
+/*void PORTD_init(void){ 
 	SYSCTL_RCGCGPIO_R |= 0x08; 	
   while((SYSCTL_PRGPIO_R & 0x08) == 0){}; 	// 2) allow time for clock to start
   GPIO_PORTD_CR_R = 0xF;                 // 4) allow changes to PD3-0
@@ -9,7 +9,7 @@ void PORTD_init(void){
   GPIO_PORTD_DIR_R = 0x0F;                // 7) PD3-0 as output
   GPIO_PORTD_AFSEL_R = 0x00;              // 8) disable alt funct on PD7-0
   GPIO_PORTD_DEN_R = 0x0F;          		  // 10) enable digital I/O on PD3-0
-}
+}*/
 
 //============================== UART1 Intialization ==============================
 void UART1_Init(void){
