@@ -47,26 +47,30 @@ GPIO_PORTD_PCTL_R |= 0x11000000 ;			               // configure PD6-PD7 as UART
 GPIO_PORTD_AMSEL_R =0x00;                            // disable analog functionality on PA
 	
 }*/
-char UART2_read(void){
-    while((UART2_FR_R&0x10) == 0x10);
-    return UART2_DR_R & 0xFF;
+//============================== UART1 Read ==============================
+char UART1_Read(void){
+while ((UART1_FR_R&0x0010) != 0);    
+return (UART1_DR_R&0xFF);
 }
-void UART2_write(char c){
-    while((UART2_FR_R & UART_FR_TXFF) != 0);
-    UART0_DR_R = c;
+//============================== UART1 Write ( if needed ) ==============================
+void UART1_Write(char data){ 
+while ((UART1_FR_R&0x0020) != 0);
+UART2_DR_R = data;
 }
 
-char* UART2_ReadStr(void){
-	char* str;
-	int i;
-	for (i=0; i<1810; i++){
-		str[i] =  UART2_read();
-	}
-	return str;
-}
 void UART1_WriteString(char *str){								//Write String
   while(*str){
     UART1_Write(*str);
     str++;
   }
+}
+
+void UART1_ReadString(char *str, char stopChar){		//Read String
+	char c = UART1_Read();
+	while(c && c != stopChar){
+		*str = c;
+		str++;
+		c = UART1_Read();
+	}
+	*str = 0x00;
 }
